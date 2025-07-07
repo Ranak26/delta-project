@@ -84,8 +84,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Welcome to Delta Project!');
+  res.render('listings/index');
 });
+
 
 // app.get("/demouser", async (req, res) => {
 //   let fakeUser = new User({
