@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+const Listing = require('./models/listing'); // ✅ Adjust the path if needed
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
