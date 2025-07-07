@@ -83,9 +83,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.render('listings/index');
-});
+app.get('/', async (req, res) => {
+ try {
+    const allListings = await Listing.find(); // ✅ fetch listings
+    res.render('listings/index', { allListings }); // ✅ pass it to EJS
+  } catch (err) {
+    console.error("Error loading home page:", err);
+    res.status(500).send("Server error");
+  }});
 
 
 // app.get("/demouser", async (req, res) => {
