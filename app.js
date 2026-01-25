@@ -94,6 +94,24 @@ app.get('/', async (req, res) => {
     res.status(500).send("Server error");
   }});
 
+app.get("/search", async (req, res) => {
+  const { q } = req.query; // search term
+
+  // Case-insensitive search by title, location, or country
+  const allListings = await Listing.find({
+    $or: [
+      { title: { $regex: q, $options: "i" } },
+      { location: { $regex: q, $options: "i" } },
+      { country: { $regex: q, $options: "i" } }
+    ]
+  });
+
+  res.render("listings/index", { 
+    allListings, 
+    currentCategory: 'All', // default
+    searchQuery: q // to keep the input value
+  });
+});
 
 // app.get("/demouser", async (req, res) => {
 //   let fakeUser = new User({
