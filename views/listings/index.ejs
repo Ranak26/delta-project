@@ -21,15 +21,20 @@
   .Tax-info{
     display: none;
   }
-  .Tax-toggle{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 3.5rem;
-    padding: 1rem;
-    margin-left: 5rem;
-    display: flex;
-    align-items: center;
-  }
+#filters {
+  display: flex;
+  justify-content: space-between; /* pushes items to opposite ends */
+  align-items: center;
+}
+.Tax-toggle {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.5rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+}
+
   .no-results {
   margin-top: 3rem;
   color: #555;
@@ -49,6 +54,10 @@
 </style>
 
 <div id="filters">
+  <div class="filter">
+    <i class="fa-solid fa-hand-holding-dollar"></i>
+    <p>Cheaper</p>
+  </div>
   <div class="filter">
     <i class="fa-solid fa-fire"></i>
     <p>Trending</p>
@@ -73,6 +82,15 @@
     <i class="fa-solid fa-campground"></i>
     <p>camping</p>
   </div>
+  <div class="filter">
+    <i class="fa-solid fa-person-walking-luggage"></i>
+    <p>Bussiness Trip</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-ranking-star"></i>
+    <p>Customer favourite</p>
+  </div>
+  
   <div class="Tax-toggle">
     <div class="form-check form-switch form-check-reverse">
   <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
