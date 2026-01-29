@@ -85,14 +85,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', async (req, res) => {
- try {
-    const allListings = await Listing.find(); // ✅ fetch listings
-    res.render('listings/index', { allListings }); // ✅ pass it to EJS
+app.get("/", async (req, res) => {
+  try {
+    const { category } = req.query;
+
+    let allListings;
+    if (category) {
+      allListings = await Listing.find({ category });
+    } else {
+      allListings = await Listing.find({});
+    }
+
+    res.render("listings/index", { allListings });
   } catch (err) {
-    console.error("Error loading home page:", err);
-    res.status(500).send("Server error");
-  }});
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 app.get("/search", async (req, res) => {
   const { q } = req.query; // search term

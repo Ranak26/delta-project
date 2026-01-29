@@ -87,6 +87,24 @@
               <div class="invalid-feedback">Please provide a country.</div>
             </div>
           </div>
+          <br>
+          <br>
+          <div class="mb-3">
+             <label for="category" class="form-label">Category</label>
+             <select name="listing[category]" class="form-select" required>
+                <option value="">Select a category</option>
+                <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+                <option value="pools" <%= listing.category === 'pools' ? 'selected' : '' %>>Pools</option>
+                <option value="castles" <%= listing.category === 'castles' ? 'selected' : '' %>>Castles</option>
+                <option value="trending" <%= listing.category === 'trending' ? 'selected' : '' %>>Trending</option>
+                <option value="cheaper" <%= listing.category === 'cheaper' ? 'selected' : '' %>>Cheaper</option>
+                <option value="city" <%= listing.category === 'city' ? 'selected' : '' %>>City</option>
+                <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+                <option value="business" <%= listing.category === 'business' ? 'selected' : '' %>>Business</option>
+                <option value="favourite" <%= listing.category === 'favourite' ? 'selected' : '' %>>Favourite</option>
+              </select>
+              <div class="invalid-feedback">Please select a category.</div>
+            </div>
         </div>
         <br>
         <br>

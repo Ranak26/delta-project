@@ -2,7 +2,24 @@ const Listing = require("../models/listing");
 const { listingSchema } = require("../schema.js");
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
+  const { category } = req.query;
+  let allListings;
+
+  if (category === "cheaper") {
+    allListings = await Listing.find({ price: { $lt: 1000 } });
+  } else if (category === "favourite") {
+    if (!req.user) {
+      req.flash("error", "Please login to see your favourites");
+      return res.redirect("/login");
+    }
+    // Only show listings favourited by the logged-in user
+    allListings = await Listing.find({ favourites: req.user._id });
+  } else if (category) {
+    allListings = await Listing.find({ category: category });
+  } else {
+    allListings = await Listing.find({});
+  }
+
   res.render("listings/index.ejs", { allListings });
 };
 
@@ -81,4 +98,31 @@ module.exports.deleteListing = async (req, res) => {
   req.flash("success", " Listing Deleted !!");
 
   res.redirect("/listings");
+};
+
+module.exports.toggleFavourite = async (req, res) => {
+  const { id } = req.params;
+  const listing = await Listing.findById(id);
+
+  if (!listing) {
+    req.flash('error', 'Listing not found!');
+    return res.redirect('/listings');
+  }
+
+  const userId = req.user._id;
+  // Ensure favourites array exists
+  listing.favourites = listing.favourites || [];
+
+  if (listing.favourites.includes(userId)) {
+    // Remove from favourites
+    listing.favourites.pull(userId);
+    req.flash('success', 'Removed from favourites!');
+  } else {
+    // Add to favourites
+    listing.favourites.push(userId);
+    req.flash('success', 'Added to favourites!');
+  }
+
+  await listing.save();
+  res.redirect('/listings'); // Redirect back to listings
 };

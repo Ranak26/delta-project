@@ -79,6 +79,27 @@
             class="form-control"
             required
           />
+          <br><br>
+          <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select
+          name="listing[category]"
+          class="form-select"
+          required
+        >
+          <option value="">Select a category</option>
+          <option value="rooms">Rooms</option>
+          <option value="pools">Pools</option>
+          <option value="castles">Castles</option>
+          <option value="trending">Trending</option>
+          <option value="cheaper">Cheaper</option>
+          <option value="city">City</option>
+          <option value="camping">Camping</option>
+          <option value="business">Business</option>
+          <option value="favourite">Favourite</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+      </div>
         </div>
         <br />
         <br />
