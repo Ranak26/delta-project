@@ -44,7 +44,7 @@ const listingSchema = new mongoose.Schema({
       "cheaper",
       "city",
       "camping",
-      "business",
+      "beach",
       "favourite"
     ],
   },
