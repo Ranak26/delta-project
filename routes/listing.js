@@ -3,6 +3,7 @@ const router = express.Router();
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema } = require("../schema.js");
+const Booking = require("../models/booking");
 
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
@@ -41,6 +42,24 @@ router.route("/:id")
 
 // EDIT Form
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.editListing));
+
+// book button 
+router.get("/:id/book", isLoggedIn, async (req, res) => {
+  const listing = await Listing.findById(req.params.id);
+  res.render("bookings/new", { listing });
+});
+
+router.post("/:id/book", isLoggedIn, async (req, res) => {
+  const booking = new Booking({
+    user: req.user._id,
+    listing: req.params.id,
+    ...req.body
+  });
+
+  await booking.save();
+  req.flash("success", "Booking confirmed!");
+  res.redirect(`/listings/${req.params.id}`);
+});
 
 // =====================
 // Favourite Route

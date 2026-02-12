@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+  <h3>Confirm Booking</h3>
+  <hr>
+
+  <p><b>Hotel:</b> <%= listing.title %></p>
+  <p><b>Location:</b> <%= listing.location %></p>
+  <p><b>Price per night:</b> ₹<%= listing.price %></p>
+
+  <form action="/listings/<%= listing._id %>/book" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Check-in Date</label>
+      <input type="date" name="checkIn" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Check-out Date</label>
+      <input type="date" name="checkOut" class="form-control" required>
+    </div>
+
+    <button class="btn btn-success">Confirm Booking</button>
+  </form>
+</div>

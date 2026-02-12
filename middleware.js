@@ -4,9 +4,13 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
+  if (typeof req.isAuthenticated !== "function") {
+    return next(new Error("Passport not initialized"));
+  }
+
   if (!req.isAuthenticated()) {
     req.session.redirectUrl = req.originalUrl;
-    req.flash("error", "You Must be Logged in to Create a Listing");
+    req.flash("error", "You must be logged in");
     return res.redirect("/login");
   }
   next();

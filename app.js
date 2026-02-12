@@ -25,6 +25,8 @@ const userRouter = require("./routes/user.js");
 
 const dbURL= process.env.ATLASDB_URL
 //console.log("Connecting to MongoDB using:", dbURL);
+const bookingRoutes = require("./routes/bookings.js");
+
 
 async function main() {
   await mongoose.connect(dbURL);
@@ -77,6 +79,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
@@ -131,7 +134,7 @@ app.get("/search", async (req, res) => {
 //   let registerdUser= await User.register(fakeUser,"password");
 //   res.send(registerdUser);
 // });
-
+app.use("/bookings", bookingRoutes);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);

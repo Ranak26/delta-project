@@ -20,6 +20,19 @@
       </p>
     </div>
   </div>
+  <div class="col-6 offset-3 mt-3 text-center">
+  <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
+    <form action="/listings/<%= listing._id %>/book" method="GET">
+      <button class="btn btn-success btn-lg">
+        Book Now
+      </button>
+    </form>
+  <% } else if (!currUser) { %>
+    <a href="/login" class="btn btn-warning btn-lg">
+      Login to Book
+    </a>
+  <% } %>
+</div>
   <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
 
   <div class="btns">
