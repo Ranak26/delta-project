@@ -20,21 +20,83 @@
       </p>
     </div>
   </div>
-  <div class="col-6 offset-3 mt-3 text-center">
+ <div class="col-6 offset-3 mt-4">
+
   <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
-    <form action="/listings/<%= listing._id %>/book" method="GET">
-      <button class="btn btn-success btn-lg">
-        Book Now
-      </button>
-    </form>
+
+  <form action="/listings/<%= listing._id %>/book" method="GET" class="card p-3">
+
+    <h5 class="mb-3 fw-semibold d-flex justify-content-between align-items-center">
+  Guests
+  <span class="badge bg-dark fs-6">
+    <span id="totalGuests">1</span> guest
+  </span>
+</h5>
+
+
+    <!-- Adults -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <div class="fw-medium">Adults</div>
+        <small class="text-muted">Ages 13+</small>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('adults', -1)">−</button>
+        <span id="adultsCount">1</span>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('adults', 1)">+</button>
+      </div>
+    </div>
+
+    <!-- Children -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <div class="fw-medium">Children</div>
+        <small class="text-muted">Ages 3–12</small>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('children', -1)">−</button>
+        <span id="childrenCount">0</span>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('children', 1)">+</button>
+      </div>
+    </div>
+
+    <!-- Infants -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <div class="fw-medium">Infants</div>
+        <small class="text-muted">Under 3</small>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('infants', -1)">−</button>
+        <span id="infantsCount">0</span>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+          onclick="updateGuests('infants', 1)">+</button>
+      </div>
+    </div>
+
+    <!-- Hidden inputs -->
+    <input type="hidden" name="guests[adults]" id="adultsInput" value="1">
+    <input type="hidden" name="guests[children]" id="childrenInput" value="0">
+    <input type="hidden" name="guests[infants]" id="infantsInput" value="0">
+
+    <button class="btn btn-success btn-lg w-100">
+      Book Now
+    </button>
+  </form>
+
   <% } else if (!currUser) { %>
-    <a href="/login" class="btn btn-warning btn-lg">
+    <a href="/login" class="btn btn-warning btn-lg w-100 text-center">
       Login to Book
     </a>
   <% } %>
 </div>
-  <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
 
+<% if (currUser && listing.owner._id.equals(currUser._id)) { %>
   <div class="btns">
     <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark offset-3"
       >Edit</a

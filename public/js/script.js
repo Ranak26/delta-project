@@ -15,4 +15,36 @@
       form.classList.add('was-validated')
     }, false)
   })
+
+  const guests = {
+  adults: 1,
+  children: 0,
+  infants: 0
+};
+
+const minGuests = {
+  adults: 1,
+  children: 0,
+  infants: 0
+};
+
+function updateTotalGuests() {
+  const total =
+    guests.adults + guests.children + guests.infants;
+
+  document.getElementById("totalGuests").innerText = total;
+}
+
+window.updateGuests = function (type, change) {
+  const newValue = guests[type] + change;
+
+  if (newValue < minGuests[type]) return;
+
+  guests[type] = newValue;
+
+  document.getElementById(`${type}Count`).innerText = guests[type];
+  document.getElementById(`${type}Input`).value = guests[type];
+
+  updateTotalGuests();
+};
 })();
